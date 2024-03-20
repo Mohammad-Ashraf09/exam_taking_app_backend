@@ -9,6 +9,7 @@ const path = require("path");
 
 const userRoute = require("./router/Users");
 const authRoute = require("./router/Auth");
+const paperRoute = require("./router/Papers");
 const { DATABASE } = require('./config/keys')
 
 dotenv.config();
@@ -29,6 +30,7 @@ app.use(morgan("common"));
 // routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
+app.use("/api/papers", paperRoute);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("build"));
