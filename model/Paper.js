@@ -14,6 +14,14 @@ const PaperSchema = new mongoose.Schema(
       type: Array,
       required: true,
     },
+    isLive: {
+      type: Boolean,
+      default: false,
+    },
+    liveAt: {
+        type: Date,
+        default: '',
+    }
   },
   { timestamps: true }
 );

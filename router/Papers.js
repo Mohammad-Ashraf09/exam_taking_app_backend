@@ -15,7 +15,7 @@ router.post("/create", async (req, res) => {
 
 
 //get all papers
-router.get("/", async (req, res) => {
+router.get("/list", async (req, res) => { // change this as "/paperList"
     try {
         const paper = await Paper.find();
         res.status(200).json(paper);
@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
 });
 
 //get a paper
-router.get("/:id", async (req, res) => {
+router.get("/:id/paper", async (req, res) => {
     try {
         const paper = await Paper.findById(req.params.id);
         res.status(200).json(paper);
@@ -34,8 +34,22 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+//update paper
+router.put("/:id/live", async (req, res) => {
+    if (req.body.paperId === req.params.id) {
+        try {
+            await Paper.findByIdAndUpdate(req.params.id, {$set: req.body});
+            res.status(200).json("paper updated");
+        } catch (err) {
+            return res.status(500).json(err);
+        }
+    } else {
+        return res.status(403).json("paper not found");
+    }
+});
+
 //delete paper
-router.delete("/:id", async (req, res) => {
+router.delete("/:id/delete", async (req, res) => {
     try {
         await Paper.findByIdAndDelete(req.params.id);
         res.status(200).json("Paper deleted");
