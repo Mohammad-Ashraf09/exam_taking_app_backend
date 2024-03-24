@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 //get a user
-router.get("/:id", async (req, res) => {
+router.get("/:id/user", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, updatedAt, ...other } = user._doc;
