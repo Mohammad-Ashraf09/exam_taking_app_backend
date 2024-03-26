@@ -48,6 +48,29 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+//update user's attempted paper array
+router.put("/:id/exam", async (req, res) => {
+    if (req.body.userId === req.params.id) {
+        try {
+            const user = await User.findById(req.body.userId);
+            await user.updateOne({
+                $push: {
+                    attemptedPapers: {
+                        paperId: req.body.paperId,
+                        attemptedAt: req.body.attemptedAt,
+                        responses: req.body.responses,
+                    }
+                }
+            });
+            res.status(200).json("Account has been updated");
+        } catch (err) {
+            return res.status(500).json(err);
+        }
+    } else {
+        return res.status(403).json("You can update only your account!");
+    }
+});
+
 //delete user
 router.delete("/:id", async (req, res) => {
   
