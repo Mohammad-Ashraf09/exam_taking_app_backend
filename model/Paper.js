@@ -10,6 +10,10 @@ const PaperSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    timeAllotted: {
+      type: Number,
+      required: true,
+    },
     questions: {
       type: Array,
       required: true,
