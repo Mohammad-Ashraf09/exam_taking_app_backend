@@ -48,6 +48,17 @@ router.put("/:id/live", async (req, res) => {
     }
 });
 
+//add a question
+router.put("/:id/addQuestion", async (req, res) => {
+    try {
+        const paper = await Paper.findById(req.params.id);
+        await paper.updateOne({ $push: { questions: req.body } });
+        res.status(200).json("question added");
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 //delete paper
 router.delete("/:id/delete", async (req, res) => {
     try {
